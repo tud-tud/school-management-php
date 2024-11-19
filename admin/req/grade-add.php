@@ -11,13 +11,10 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
             $grade_code = $_POST['grade_code'];
             $grade = $_POST['grade'];
             
-
-
             $data = 'grade_code=' . $grade_code . '&grade=' . $grade;
 
-
             if (empty($grade_code)) {
-                $em = "Grade codei s required";
+                $em = "Grade code is required";
                 header("Location:../grade-add.php?error=$em&$data");
                 exit;
             } else if (empty($grade)) {

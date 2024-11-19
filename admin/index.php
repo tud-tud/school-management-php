@@ -40,7 +40,7 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
                             Registrer Office</a>
                         <a href="" class="col btn btn-dark m-2 py-3"><i class="fa fa-cubes fs-1" aria-hidden="true"></i><br />
                             Class</a>
-                        <a href="" class="col btn btn-dark m-2 py-3"><i class="fa fa-columns fs-1" aria-hidden="true"></i><br />
+                        <a href="section.php" class="col btn btn-dark m-2 py-3"><i class="fa fa-columns fs-1" aria-hidden="true"></i><br />
                             Section</a>
                         <a href="" class="col btn btn-dark m-2 py-3"><i class="fa fa-calendar fs-1" aria-hidden="true"></i><br />
                         Schedule</a>

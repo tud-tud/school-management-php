@@ -16,7 +16,6 @@ function getAllSections($conn)
 }
 
 
-
 // Get Section By ID
 function getSectionByID($section_id,$conn)
 {
@@ -28,6 +27,20 @@ function getSectionByID($section_id,$conn)
         $section = $stmt->fetch();
         return $section;
     }else{
+        return 0;
+    }
+}
+
+// Delete
+function removeSection($id, $conn)
+{
+    $sql = "DELETE FROM section WHERE section_id=?";
+    $stmt = $conn->prepare($sql);
+    $re = $stmt->execute([$id]);
+
+    if ($re) {
+        return 1;
+    } else {
         return 0;
     }
 }

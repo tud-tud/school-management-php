@@ -21,7 +21,7 @@
                     <a class="nav-link" href="grade.php">Grade</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Section</a>
+                    <a class="nav-link" href="section.php">Section</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">Class</a>
