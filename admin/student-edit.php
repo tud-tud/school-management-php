@@ -257,10 +257,10 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role']) && isset($_GET['stu
 
 <?php
     } else {
-        header("Location: teacher.php");
+        header("Location: student.php");
         exit;
     }
 } else {
-    header("Location: teacher.php");
+    header("Location: student.php");
     exit;
 } ?>
