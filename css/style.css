@@ -1,0 +1,116 @@
+.body-home,.body-login{
+    /* background: url(../img/home.jpg); */
+    background: linear-gradient(45deg,#004FF9,#FFF94C,#d006d0,#ff554c,#519be5);
+    background-size: 300% 300%;
+    animation: color 12s ease-in-out infinite;
+    /* background-attachment: fixed; */
+}
+
+@keyframes color {
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+.body-login{
+    height: 100vh;
+}
+
+.black-fill{
+    background: rgba(0, 0, 0, 0.5);
+    min-height: 100vh;
+}
+
+#homeNav{
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.welcome-text{
+    min-height: 80vh;
+    border-radius: 10px;
+}
+
+.welcome-text img{
+    width: 100px;
+}
+
+.welcome-text h4{
+    color: #eee;
+    font-size: 51px;
+}
+
+.welcome-text p{
+    color: #222;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 5px;
+    border-radius: 4px;
+}
+
+#about{
+    min-height: 100vh;
+}
+
+#about .card-1{
+    max-width: 600px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#contact{
+    min-height: 100vh;
+}
+
+#contact form{
+    max-width: 600px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+}
+#contact form h3{
+    text-align: center;
+}
+
+#contact form textarea {
+    resize: none;
+}
+
+.login{
+    max-width: 500px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+
+}
+
+.login h3{
+    text-align: center ;
+    font-size: 50px;
+}
+
+.w-450{
+    width: 450px !important;
+}
+
+.n-table{
+    max-width: 800px;
+}
+
+.form-w {
+    max-width: 600px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+
+
+
