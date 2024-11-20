@@ -6,6 +6,7 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
         include "data/subject.php";
         include "data/grade.php";
         include "data/section.php";
+        include "data/class.php";
 
         if (isset($_GET['teacher_id'])) {
 
@@ -43,7 +44,7 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
 
                     <div class="container my-5">
                         <div class="card" style="width: 28rem;">
-                            <img src="../img/T-<?= $teacher['gender'] ?>.png"  class="card-img-top" alt="...">
+                            <img src="../img/T-<?= $teacher['gender'] ?>.png" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title text-center">@<?= $teacher['username'] ?></h5>
 
@@ -74,33 +75,21 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
                                     echo $s;
                                     ?>
                                 </li>
-                                <li class="list-group-item">Grades:
+                                <li class="list-group-item">Class:
                                     <?php
-                                    $g = '';
-                                    $grades = str_split(trim($teacher['grades']));
-                                    foreach ($grades as $grade) {
-                                        $g_temp = getGradeByID($grade, $conn);
-                                        if ($g_temp != 0) {
-                                            $g .= $g_temp['grade_code'] . '-' . $g_temp['grade'] . ', ';
+                                    $c = '';
+                                    $classes = str_split(trim($teacher['class']));
+                                    foreach ($classes as $class_id) {
+                                        $class = getClassByID($class_id, $conn);
+                                        $section = getSectionByID($class['section'], $conn);
+                                        $c_temp = getGradeByID($class['grade'], $conn);
+                                        if ($c_temp != 0) {
+                                            $c .= $c_temp['grade_code'] . '-' . $c_temp['grade'] . $section['section'] . ', ';
                                         }
                                     }
-                                    echo $g;
+                                    echo $c;
                                     ?>
                                 </li>
-                                <li class="list-group-item">Sections:
-                                <?php
-                                    $s = '';
-                                    $sections = str_split(trim($teacher['section']));
-                                    foreach ($sections as $section) {
-                                        $s_temp = getSectionByID($section, $conn);
-                                        if ($s_temp != 0) {
-                                            $s .= $s_temp['section'] . ', ';
-                                        }
-                                    }
-                                    echo $s;
-                                    ?>
-                                </li>
-
 
                             </ul>
                             <div class="card-body">

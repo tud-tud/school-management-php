@@ -2,15 +2,11 @@
 if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
     if ($_SESSION['role'] == '1') {
         include "../DB_connection.php";
-        include "data/teacher.php";
-        include "data/subject.php";
         include "data/class.php";
         include "data/grade.php";
         include "data/section.php";
 
-        $teachers = getAllTeachers($conn);
-        $subjects = getAllSubjects($conn);
-
+        $classes = getAllClasses($conn);
 
 ?>
 
@@ -31,24 +27,18 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
 
             <link rel="icon" href="../img/logo.png">
 
-            <title>Admin - Teachers</title>
+            <title>Admin - Class</title>
         </head>
 
         <body>
             <!-- Navbar -->
             <?php include "inc/navbar.php";
-            if ($teachers != 0) { ?>
+            if ($classes != 0) { ?>
 
                 <div class="container mt-5">
-                    <a href="teacher-add.php" class="btn btn-dark">Add New Teacher</a>
+                    <a href="class-add.php" class="btn btn-dark">Add New Class</a>
 
-                    <form action="tearcher-search.php" method="get" class="mt-3 n-table">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="searchKey" placeholder="Search...">
-                            <button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </form>
+
 
                     <?php if (isset($_GET['error'])) { ?>
                         <div class="alert alert-danger mt-3 n-table" role="alert">
@@ -68,56 +58,28 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Subject</th>
                                     <th scope="col">Class</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 0;
-                                foreach ($teachers as $teacher) {
+                                foreach ($classes as $class) {
                                     $i++ ?>
                                     <tr>
                                         <th scope="row"><?= $i ?></th>
-                                        <td><?= $teacher['teacher_id'] ?></td>
-                                        <td><a href="teacher-view.php?teacher_id=<?= $teacher['teacher_id'] ?>"><?= $teacher['fname'] ?></a></td>
-                                        <td><?= $teacher['lname'] ?></td>
-                                        <td><?= $teacher['username'] ?></td>
                                         <td>
                                             <?php
-                                            $s = '';
-                                            $subjects = str_split(trim($teacher['subjects']));
-                                            foreach ($subjects as $subject) {
-                                                $s_temp = getSubjectByID($subject, $conn);
-                                                if ($s_temp != 0) {
-                                                    $s .= $s_temp['subject_code'] . ', ';
-                                                }
-                                            }
-                                            echo $s;
+                                            $grade = getGradeByID($class['grade'],$conn);
+                                            $section = getSectionByID($class['section'],$conn);
+
+                                            echo $grade['grade_code'].'-'.$grade['grade'].$section['section']
                                             ?>
                                         </td>
+                                
                                         <td>
-                                            <?php
-                                            $c = '';
-                                            $classes = str_split(trim($teacher['class']));
-                                            foreach ($classes as $class_id) {
-                                                $class = getClassByID($class_id,$conn);
-                                                $section = getSectionByID($class['section'],$conn);
-                                                $c_temp = getGradeByID($class['grade'], $conn);
-                                                if ($c_temp != 0) {
-                                                    $c .= $c_temp['grade_code'] . '-' .$c_temp['grade'].$section['section']. ', ';
-                                                }
-                                            }
-                                            echo $c;
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <a href="teacher-edit.php?teacher_id=<?= $teacher['teacher_id'] ?>" class="btn btn-warning">Edit</a>
-                                            <a href="teacher-delete.php?teacher_id=<?= $teacher['teacher_id'] ?>" class="btn btn-danger">Delete</a>
+                                            <a href="class-edit.php?class_id=<?= $class['class_id'] ?>" class="btn btn-warning">Edit</a>
+                                            <a href="class-delete.php?class_id=<?= $class['class_id'] ?>" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -138,7 +100,7 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
                 <!-- jquery -->
                 <script>
                     $(document).ready(function() {
-                        $("#navLinks li:nth-child(2) a").addClass('active')
+                        $("#navLinks li:nth-child(6) a").addClass('active')
                     });
                 </script>
         </body>

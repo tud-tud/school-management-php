@@ -6,10 +6,12 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
         include "data/subject.php";
         include "data/grade.php";
         include "data/section.php";
+        include "data/class.php";
 
         $subjects = getAllSubjects($conn);
-        $grades = getAllGrades($conn);
+        
         $sections = getAllSections($conn);
+        $classes = getAllClasses($conn);
 
         $fname = '';
         $lname = '';
@@ -58,7 +60,7 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
             <div class="container mt-5">
                 <a href="teacher.php" class="btn btn-dark">Go - Back</a>
 
-                <form method="post" class="shadow p-3 mt-5 form-w" action="req/teacher-add.php">
+                <form method="post" class="shadow p-3 my-5 form-w" action="req/teacher-add.php">
                     <h3>Add New Teacher</h3>
                     <hr />
                     <?php if (isset($_GET['error'])) { ?>
@@ -148,31 +150,20 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Grade</label>
+                        <label class="form-label">Class</label>
                         <div class="row row-cols-5">
-                            <?php foreach ($grades as $grade) : ?>
+                            <?php foreach ($classes as $class) : ?>
                                 <div class="col">
-                                    <input type="checkbox" name="grade[]" value="<?= $grade['grade_id'] ?>">
-                                    <?= $grade['grade_code'] ?>-<?= $grade['grade'] ?>
+                                    <input type="checkbox" name="classes[]" value="<?= $class['class_id'] ?>">
+                                    <?php 
+                                    $grade = getGradeByID($class['grade'],$conn); 
+                                    $section = getSectionByID($class['section'],$conn); 
+                                    ?>
+                                    <?= $grade['grade_code'] ?>-<?= $grade['grade'].$section['section'] ?>
                                 </div>
                             <?php endforeach; ?>
                         </div>
                     </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Section</label>
-                        <div class="row row-cols-5">
-                            <?php
-                            foreach ($sections as $section) : ?>
-                                <div class="col">
-                                    <input type="checkbox" name="sections[]" value="<?= $section['section_id'] ?>">
-                                    <?= $section['section'] ?>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-
-
 
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>

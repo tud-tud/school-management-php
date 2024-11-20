@@ -15,9 +15,8 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
             && isset($_POST['email_address'])
             && isset($_POST['gender'])
             && isset($_POST['date_of_birth'])
-            && isset($_POST['sections'])
             && isset($_POST['subject'])
-            && isset($_POST['grade'])
+            && isset($_POST['classes'])
         ) {
 
             // connect data
@@ -37,19 +36,14 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
             $gender = $_POST['gender'];
             $date_of_birth = $_POST['date_of_birth'];
 
-            $grades = "";
-            foreach ($_POST['grade'] as $grade) {
-                $grades .= $grade;
+            $classes = "";
+            foreach ($_POST['classes'] as $class) {
+                $classes .= $class;
             }
 
             $subjects = "";
             foreach ($_POST['subject'] as $subject) {
                 $subjects .= $subject;
-            }
-
-            $sections = "";
-            foreach ($_POST['sections'] as $section) {
-                $sections .= $section;
             }
 
             $data = 'teacher_id=' . $teacher_id;
@@ -99,10 +93,10 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
                 header("Location:../teacher-edit.php?error=$em&$data");
                 exit;
             } else {
-                $sql = "UPDATE teachers SET username= ?, fname=?, lname=?, subjects=?, grades=? ,section =?,address=?,employee_number=?,date_of_birth=?,phone_number=?,qualification=?,gender=?,email_address=? WHERE teacher_id=? ";
+                $sql = "UPDATE teachers SET username= ?,class=?, fname=?, lname=?, subjects=?, address=?,employee_number=?,date_of_birth=?,phone_number=?,qualification=?,gender=?,email_address=? WHERE teacher_id=? ";
 
                 $stmt = $conn->prepare($sql);
-                $stmt->execute([$uname, $fname, $lname, $subjects, $grades, $sections, $address, $employee_number,$date_of_birth,$phone_number,$qualification,$gender,$email_address, $teacher_id]);
+                $stmt->execute([$uname,$classes, $fname, $lname, $subjects,  $address, $employee_number,$date_of_birth,$phone_number,$qualification,$gender,$email_address, $teacher_id]);
 
                 $sm = "Successfully updated!";
                 header("Location:../teacher-edit.php?success=$sm&$data");

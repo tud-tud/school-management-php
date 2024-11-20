@@ -15,8 +15,6 @@ function getAllGrades($conn)
     }
 }
 
-
-
 // Get Grade By ID
 function getGradeByID($grade_id,$conn)
 {

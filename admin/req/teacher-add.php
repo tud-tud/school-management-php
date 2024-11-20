@@ -3,20 +3,21 @@ session_start();
 if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
     if ($_SESSION['role'] == '1') {
 
-        if (isset($_POST['fname']) 
-        && isset($_POST['lname']) 
-        && isset($_POST['username']) 
-        && isset($_POST['pass']) 
-        && isset($_POST['address']) 
-        && isset($_POST['employee_number']) 
-        && isset($_POST['phone_number']) 
-        && isset($_POST['qualification']) 
-        && isset($_POST['email_address']) 
-        && isset($_POST['gender']) 
-        && isset($_POST['date_of_birth']) 
-        && isset($_POST['sections']) 
-        && isset($_POST['subject']) 
-        && isset($_POST['grade'])) {
+        if (
+            isset($_POST['fname'])
+            && isset($_POST['lname'])
+            && isset($_POST['username'])
+            && isset($_POST['pass'])
+            && isset($_POST['address'])
+            && isset($_POST['employee_number'])
+            && isset($_POST['phone_number'])
+            && isset($_POST['qualification'])
+            && isset($_POST['email_address'])
+            && isset($_POST['gender'])
+            && isset($_POST['date_of_birth'])
+            && isset($_POST['subject'])
+            && isset($_POST['classes'])
+        ) {
 
             // connect data
             include "../../DB_connection.php";
@@ -36,9 +37,9 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
             $date_of_bitth = $_POST['date_of_birth'];
 
 
-            $grades = "";
-            foreach ($_POST['grade'] as $grade) {
-                $grades .= $grade;
+            $classes = "";
+            foreach ($_POST['classes'] as $class) {
+                $classes .= $class;
             }
 
             $subjects = "";
@@ -46,12 +47,7 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
                 $subjects .= $subject;
             }
 
-            $sections = "";
-            foreach ($_POST['sections'] as $section) {
-                $sections .= $section;
-            }
-
-            $data = 'uname='.$uname.'&fname='.$fname.'&lname='.$lname.'&address='.$address.'&emn='.$employee_number.'&ph='.$phone_number.'&qf='.$qualification.'&email='.$email_address;
+            $data = 'uname=' . $uname . '&fname=' . $fname . '&lname=' . $lname . '&address=' . $address . '&emn=' . $employee_number . '&ph=' . $phone_number . '&qf=' . $qualification . '&email=' . $email_address;
 
             if (empty($fname)) {
                 $em = "First name is required";
@@ -77,41 +73,40 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
                 $em = "Address is required";
                 header("Location:../teacher-add.php?error=$em&$data");
                 exit;
-            }else if (empty($employee_number)) {
+            } else if (empty($employee_number)) {
                 $em = "Employee Number is required";
                 header("Location:../teacher-add.php?error=$em&$data");
                 exit;
-            }else if (empty($phone_number)) {
+            } else if (empty($phone_number)) {
                 $em = "Phone number is required";
                 header("Location:../teacher-add.php?error=$em&$data");
                 exit;
-            }else if (empty($qualification)) {
+            } else if (empty($qualification)) {
                 $em = "Qualification is required";
                 header("Location:../teacher-add.php?error=$em&$data");
                 exit;
-            }else if (empty($email_address)) {
+            } else if (empty($email_address)) {
                 $em = "Email address is required";
                 header("Location:../teacher-add.php?error=$em&$data");
                 exit;
-            }else if (empty($gender)) {
+            } else if (empty($gender)) {
                 $em = "gender is required";
                 header("Location:../teacher-add.php?error=$em&$data");
                 exit;
-            }else if (empty($date_of_bitth)) {
+            } else if (empty($date_of_bitth)) {
                 $em = "Date of bitth is required";
                 header("Location:../teacher-add.php?error=$em&$data");
                 exit;
-            }else {
+            } else {
                 // hashing the password
                 $pass = password_hash($pass, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO teachers(username, password,fname,lname,subjects,grades,section,address,employee_number,date_of_birth,phone_number,qualification,gender,email_address) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $sql = "INSERT INTO teachers(username, password,class,fname,lname,subjects,address,employee_number,date_of_birth,phone_number,qualification,gender,email_address) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $stmt = $conn->prepare($sql);
-                $stmt->execute([$uname, $pass, $fname, $lname, $subjects, $grades, $sections, $address, $employee_number,$date_of_bitth,$phone_number,$qualification,$gender,$email_address]);
+                $stmt->execute([$uname, $pass, $classes, $fname, $lname, $subjects, $address, $employee_number, $date_of_bitth, $phone_number, $qualification, $gender, $email_address]);
 
                 $sm = "New teacher registered successfully";
                 header("Location:../teacher-add.php?success=$sm");
                 exit;
-
             }
         } else {
             $em = "An error occurred";
@@ -126,4 +121,3 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
     header("Location:../../logout.php");
     exit;
 }
-
