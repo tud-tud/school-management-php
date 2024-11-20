@@ -12,12 +12,10 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role']) && isset($_GET['cla
         $grades = getAllGrades($conn);
         $sections = getAllSections($conn);
 
-
         if ($class == 0) {
             header("Location: class.php");
             exit;
         }
-
 ?>
 
         <!DOCTYPE html>
