@@ -31,13 +31,13 @@ function getR_userByID($r_user_id, $conn)
 }
 
 // Check if the username Unique
-function unameIsUnique($uname, $conn, $teacher_id = 0)
+function unameIsUnique($uname, $conn, $r_user_id = 0)
 {
-    $sql = "SELECT username, teacher_id FROM teachers WHERE username=?";
+    $sql = "SELECT username, r_user_id FROM register_office WHERE username=?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$uname]);
 
-    if ($teacher_id == 0) {
+    if ($r_user_id == 0) {
         if ($stmt->rowCount() >= 1) {
             return 0;
         } else {
@@ -46,7 +46,7 @@ function unameIsUnique($uname, $conn, $teacher_id = 0)
     } else {
         if ($stmt->rowCount() >= 1) {
             $teacher = $stmt->fetch();
-            if ($teacher['teacher_id'] == $teacher_id) {
+            if ($teacher['r_user_id'] == $r_user_id) {
                 return 1;
             } else {
                 return 0;
@@ -58,9 +58,9 @@ function unameIsUnique($uname, $conn, $teacher_id = 0)
 }
 
 // Delete
-function removeTeacher($id, $conn)
+function removeR_user ($id, $conn)
 {
-    $sql = "DELETE FROM teachers WHERE teacher_id=?";
+    $sql = "DELETE FROM register_office WHERE r_user_id=?";
     $stmt = $conn->prepare($sql);
     $re = $stmt->execute([$id]);
 
@@ -71,28 +71,3 @@ function removeTeacher($id, $conn)
     }
 }
 
-// Search
-function searchTeachers($key, $conn)
-{
-  
-    $key = preg_replace('/(?<!\\\)([%_])/', '\\\$1',$key);
-    
-    $sql = "SELECT * FROM teachers WHERE 
-    teacher_id LIKE ? OR
-    username LIKE ? OR
-    fname LIKE ? OR
-    lname LIKE ? OR
-    address LIKE ? OR
-    gender LIKE ? 
-    ";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->execute([$key,$key,$key,$key,$key,$key]);
-
-    if ($stmt->rowCount() == 1) {
-        $teachers = $stmt->fetchAll();
-        return $teachers;
-    } else {
-        return 0;
-    }
-}

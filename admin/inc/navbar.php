@@ -27,7 +27,7 @@
                     <a class="nav-link" href="class.php">Class</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="register_office.php">Register-Office</a>
+                    <a class="nav-link" href="register-office.php">Register-Office</a>
                 </li>
                 
                 
