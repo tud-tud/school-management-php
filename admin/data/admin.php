@@ -1,6 +1,6 @@
 <?php
 
-// All Grades
+
 function adminPasswordVerify($admin_password,$conn,$admin_id)
 {
     $sql = "SELECT * FROM admin WHERE admin_id=?";

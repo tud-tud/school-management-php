@@ -1,6 +1,6 @@
 <?php session_start();
-if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
-    if ($_SESSION['role'] == '1') {
+if (isset($_SESSION['r_user_id']) && isset($_SESSION['role'])) {
+    if ($_SESSION['role'] == '4') {
         include "../DB_connection.php";
         include "data/student.php";
         include "data/subject.php";
@@ -33,12 +33,11 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
 
                 <link rel="icon" href="../img/logo.png">
 
-                <title>Admin - Student</title>
+                <title>Register office - Student</title>
             </head>
 
             <body>
-                <!-- Navbar -->
-                <?php include "inc/navbar.php";
+                <?php 
                 if ($student != 0) { ?>
 
                     <div class="container my-5">
@@ -95,12 +94,7 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role'])) {
 
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-                <!-- jquery -->
-                <script>
-                    $(document).ready(function() {
-                        $("#navLinks li:nth-child(3) a").addClass('active')
-                    });
-                </script>
+                
             </body>
 
             </html>

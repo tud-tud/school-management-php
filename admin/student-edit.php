@@ -227,8 +227,6 @@ if (isset($_SESSION['admin_id']) && isset($_SESSION['role']) && isset($_GET['stu
                     $("#navLinks li:nth-child(3) a").addClass('active')
                 });
 
-
-
                 function makePass(length) {
                     let result = '';
                     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
